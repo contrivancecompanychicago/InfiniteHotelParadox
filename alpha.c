@@ -56,7 +56,22 @@ void inorder(struct node* root)
         inorder(root->right);
     }
 }
-/*
+
+int search(struct node* root, int key)
+{
+    if (root == NULL)
+        return 0;
+    else if (root->data == key)
+        return 1;
+
+    else if (root->data < key)
+       return search(root->right, key);
+
+    else
+        return search(root->left, key);
+}
+
+
 struct node* findmin(struct node* root)
 {
     struct node* temp = root;
@@ -67,15 +82,15 @@ struct node* findmin(struct node* root)
     return temp;
 }
 
-struct node* deletenode(struct node* root,int data)
+struct node* deletenode(struct node* root,int itemm)
 {
     //search element
     if(root == NULL)
         return root;
-    else if(data < root->data)
-        root->left=deletenode(root->left,data);
-    else if(data > root->data)
-        root->right=deletenode(root->right,data);
+    else if(itemm < root->data)
+        root->left=deletenode(root->left,itemm);
+    else if(itemm > root->data)
+        root->right=deletenode(root->right,itemm);
     else
     {
         //case 1 : deleting a leaf node
@@ -108,17 +123,17 @@ struct node* deletenode(struct node* root,int data)
             return root;
         }
     }
-}*/
+}
 
 int main()
 {
       struct node* root = NULL;
-      int rm,choice,room,i;
+      int rm,choice,room,i,key,keyy;
       char naam[20], pk[10];
       for(;;)
     {
         printf("\n\n## Hotel  ##");
-        printf("\n1.INSERT \n2.DISPLAY\n3.Exit \n");
+        printf("\n1.INSERT \n2.DISPLAY\n3.Exit \n4.Search\n5.Delete\n");
         scanf("%d",&choice);
         switch(choice)
         {
@@ -139,6 +154,18 @@ int main()
                     break;
             case 3: exit(1);
                     break;
+
+            case 4:printf("Enter the Room to be searched");
+                   scanf("%d",&key);
+                   if(search(root,key) == 1)
+                    printf("Key found");
+                   else
+                    printf("Key not found");
+                   break;
+            case 5: printf("Enter the key you want to delete");
+                   scanf("%d",&keyy);
+                   deletenode(root,keyy);
+                   break;
                   }
                 }
 
